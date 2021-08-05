@@ -1,5 +1,6 @@
 import os
 import sys
+import tkinter
 import pyautogui
 import webbrowser
 
@@ -9,6 +10,7 @@ files = os.listdir()
 def open_zoom():
     f = open("zoom.txt", "r")
     webbrowser.open(f.readline())
+    f.close()
     launch_zoom()
 
 
@@ -29,5 +31,6 @@ if "zoom.txt" not in files:
     link = input()
     f = open("zoom.txt", "w")
     f.write(link)
+    f.close()
 
 open_zoom()
