@@ -7,6 +7,8 @@ import yaml
 import pyautogui
 import tkinter
 
+file=__file__[:-7]
+
 meetings = {"meetings": []}
 
 
@@ -29,7 +31,7 @@ def open_zoom(_alias):
 def launch_zoom(loading_symbol):
     try:
         x, y = pyautogui.locateCenterOnScreen(
-            "Zoom-Launch-Meeting-Button.png", confidence=0.8
+            file+"Zoom-Launch-Meeting-Button.png", confidence=0.8
         )
         pyautogui.click(x, y)
 
@@ -55,7 +57,7 @@ def more_option(opt):
 
         meetings["meetings"].append(dict({alias: link}))
 
-        with open("zoom.yml", "w") as f:
+        with open(file+"zoom.yml", "w") as f:
             yaml.dump(meetings, f)
         print(" Data is added")
         input("\n [ENTER] >>> ")
@@ -72,7 +74,7 @@ def more_option(opt):
         print(" Type the id number to delete")
         alias = int(input(" [User] >>> "))
         meetings["meetings"].pop(alias - 1)
-        with open("zoom.yml", "w") as f:
+        with open(file+"zoom.yml", "w") as f:
             yaml.dump(meetings, f)
         print(" removed")
         input("\n [ENTER] >>> ")
@@ -177,7 +179,7 @@ try:
     if __name__ == "__main__":
 
         try:
-            with open("zoom.yml", "r") as f:
+            with open(file+"zoom.yml", "r") as f:
                 meetings = yaml.load(f, Loader=yaml.FullLoader)
         except FileNotFoundError:
             print("Give alias for your meeting")
@@ -188,7 +190,7 @@ try:
 
             meetings["meetings"].append(dict({alias: link}))
 
-            with open("zoom.yml", "w") as f:
+            with open(file+"zoom.yml", "w") as f:
                 yaml.dump(meetings, f)
             open_zoom_link(link)
 
