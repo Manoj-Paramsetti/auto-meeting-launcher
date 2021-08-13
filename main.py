@@ -25,7 +25,7 @@ def more_option(opt):
 
         meetings["meetings"].append(dict({alias: link}))
         if validate(link):
-            with open(file + "zoom.yml", "w") as f:
+            with open(file + "meeting.yml", "w") as f:
                 yaml.dump(meetings, f)
             print(" Data is added")
             input("\n [ENTER] >>> ")
@@ -44,7 +44,7 @@ def more_option(opt):
         print(" Type the id number to delete")
         alias = int(input(" [User] >>> "))
         meetings["meetings"].pop(alias - 1)
-        with open(file + "zoom.yml", "w") as f:
+        with open(file + "meeting.yml", "w") as f:
             yaml.dump(meetings, f)
         print(" removed")
         input("\n [ENTER] >>> ")
@@ -228,7 +228,7 @@ def find_whom_to_call(link):
     if re.search("meet.google.com", link):
         open_link(link)
         launch_gmeet("\\")
-    elif re.search("zoom", link):
+    elif re.search(".zoom.us", link):
         open_link(link)
         launch_zoom("\\")
     elif re.search("teams.live", link):
@@ -264,7 +264,7 @@ try:
     if __name__ == "__main__":
 
         try:
-            with open(file + "zoom.yml", "r") as f:
+            with open(file + "meeting.yml", "r") as f:
                 meetings = yaml.load(f, Loader=yaml.FullLoader)
         except FileNotFoundError:
             print("Give alias for your meeting")
@@ -275,7 +275,7 @@ try:
 
             meetings["meetings"].append(dict({alias: link}))
 
-            with open(file + "zoom.yml", "w") as f:
+            with open(file + "meeting.yml", "w") as f:
                 yaml.dump(meetings, f)
             # open_link(link)
             find_whom_to_call(link)
